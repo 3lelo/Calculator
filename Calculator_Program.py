@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 
+
 def press(num):
     global equ_text
     equ_text += str(num)
@@ -9,8 +10,8 @@ def press(num):
 def equals():
     global equ_text
     try:
-        equ_label.set(str(eval(equ_text)))
         equ_text = str(eval(equ_text))
+        equ_label.set(equ_text)
     except ZeroDivisionError:
         equ_label.set("Error, division by 'zero'")
         equ_text = ''
@@ -20,15 +21,13 @@ def equals():
 
 def clear():
     global equ_text
-    equ_label.set('')
     equ_text = ''
+    equ_label.set(equ_text)
 
 def delete():
-    global del_text
     global equ_text
-    del_text = equ_text[:-1]
-    equ_text = del_text
-    equ_label.set(del_text)
+    equ_text = equ_text[:-1]
+    equ_label.set(equ_text)
 
 w = Tk()
 w.title('Calculator')
@@ -63,11 +62,10 @@ style.map('o.TButton',
           foreground=[('active', 'orange')],
           background=[('active', 'white')])
 
-del_text = ''
 equ_text = ''
 equ_label = StringVar()
 
-label = Label(w,textvariable=equ_label,font=('Helvetica'),width=29,height=2)
+label = Label(w,textvariable=equ_label,font=('Helvetica'),width=29,height=2,bg='black',fg='white')
 label.pack()
 
 frame = Frame(w)
@@ -113,20 +111,19 @@ clr.pack(side=LEFT)
 dlt = ttk.Button(text='delete',style='TButton',width=12,command= lambda:delete())
 dlt.pack(side=LEFT)
 
-plus = ttk.Button(frame,text='+',style='o.TButton',command= lambda:press('+'))
+plus = ttk.Button(frame,text='+',style='o.TButton',command= lambda:press(' + '))
 plus.grid(row=0,column=3)
 
-minus = ttk.Button(frame,text='-',style='o.TButton',command= lambda:press('-'))
+minus = ttk.Button(frame,text='-',style='o.TButton',command= lambda:press(' - '))
 minus.grid(row=1,column=3)
 
-mult = ttk.Button(frame,text='*',style='o.TButton',command= lambda:press('*'))
+mult = ttk.Button(frame,text='×',style='o.TButton',command= lambda:press(' * '))
 mult.grid(row=2,column=3)
 
-div = ttk.Button(frame,text='/',style='o.TButton',command= lambda:press('/'))
+div = ttk.Button(frame,text='/',style='o.TButton',command= lambda:press(' / '))
 div.grid(row=3,column=3)
 
 equ = ttk.Button(frame,text='=',style='o.TButton',command=equals)
 equ.grid(row=3,column=2)
-
 
 w.mainloop()
